@@ -1,0 +1,87 @@
+﻿<Window x:Class="Wpf20._09.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf20._09"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize"
+        Background="LightGoldenrodYellow"
+        >
+    <Canvas>
+        <!-- Меню игры -->
+        <Menu Height="20" Width="800" 
+              HorizontalAlignment="Center" VerticalAlignment="Top"
+              Background="#FFDADAAB"
+              >
+            <MenuItem Header="_Игра">
+                <MenuItem Header="Новая игра" InputGestureText="Alt+N" Click="Start_Click"/>
+                <MenuItem Header="Выход" InputGestureText="Alt+F4" Click="Exit_Click"/>
+            </MenuItem>
+            <MenuItem Header="На_стройки">
+                <MenuItem Header="Сложность игры">
+                    <MenuItem Header="Легко" IsCheckable="True"/>
+                    <Separator/>
+                    <MenuItem Header="Средне" IsCheckable="True" IsChecked="True"/>
+                    <Separator/>
+                    <MenuItem Header="Сложно" IsCheckable="True"/>
+                </MenuItem>
+                <MenuItem Header="Цвет">
+                    <MenuItem Header="" IsCheckable="True"/>
+                    <MenuItem Header="" IsCheckable="True"/>
+                    <MenuItem Header="" IsCheckable="True"/>
+                    <MenuItem Header="" IsCheckable="True"/>
+                    <MenuItem Header="" IsCheckable="True"/>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_О программе"/>
+        </Menu>
+
+        <TextBlock Canvas.Left="267" Canvas.Top="86" 
+                   TextWrapping="Wrap" 
+                   Text="Угадай число" 
+                   FontSize="36" FontFamily="Segoe Script"
+                   Foreground="DarkOrchid"
+                   />
+
+        <!-- Кнопки начала игры -->
+        <Button x:Name="Start" Content="Новая игра"
+                Canvas.Left="257" Canvas.Top="215" 
+                Height="43" Width="286"
+                Background="Bisque"
+                Foreground="#FF732286"                
+                FontSize="26"
+                FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Start_Click"
+                />
+        <Button x:Name="Exit" Content="Выход"
+                Canvas.Left="257" Canvas.Top="277" 
+                Height="43" Width="286"
+                Background="Bisque"
+                Foreground="#FF732286" 
+                FontSize="26" 
+                HorizontalAlignment="Center" VerticalAlignment="Top" Click="Exit_Click"
+                />
+
+        <!-- Сама игра -->
+        <Canvas x:Name="Game" Visibility="Collapsed">
+            <TextBlock x:Name="TimeBox" Canvas.Left="38" Canvas.Top="199" 
+               TextWrapping="Wrap" Text="60"
+               FontSize="150"/>
+            <TextBox x:Name="NumberText" Height="100" Width="192" Canvas.Left="310" Canvas.Top="249" 
+                     HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="90" />
+            <Button x:Name="HelpButton" Canvas.Left="654" Canvas.Top="249" 
+                Background="Transparent" Height="100" Width="105"
+                BorderThickness="0" Click="HelpButton_Click"
+                    >
+                <Image Source="/Images/подсказка.png" />
+            </Button>
+            <Button x:Name="CheckNumberButton" Canvas.Left="536" Canvas.Top="249" 
+                Height="100" Width="98" 
+                HorizontalAlignment="Left" VerticalAlignment="Center"
+                Background="Bisque" Click="CheckNumberButton_Click"/>
+            <TextBox x:Name="HelpText" Canvas.Left="375" Canvas.Top="371" 
+                     Background="Transparent"
+                     />
+        </Canvas>
+    </Canvas>
+</Window>
