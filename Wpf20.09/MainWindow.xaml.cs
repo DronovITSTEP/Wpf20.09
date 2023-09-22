@@ -37,8 +37,8 @@ namespace Wpf20._09
         private void Start_Click(object sender, RoutedEventArgs e)
         {
             Game.Visibility = Visibility.Visible;
-            Start.Visibility = Visibility.Collapsed;
-            Exit.Visibility = Visibility.Collapsed;
+            StartMenu.Visibility = Visibility.Collapsed;
+            HelpButton.Visibility = Visibility.Collapsed;
 
             dateTime = DateTime.Now.AddSeconds(60);
 
@@ -49,6 +49,8 @@ namespace Wpf20._09
 
             random = new Random();
             randomNumber = random.Next(10, 31);
+
+            
         }
 
         private void DownTimer(object sender, EventArgs e)
@@ -63,35 +65,48 @@ namespace Wpf20._09
         {
             Close();
         }
-
-        private void CheckNumberButton_Click(object sender, RoutedEventArgs e)
+        private void HelpButton_Click(object sender, RoutedEventArgs e)
         {
-            int num = int.Parse(NumberText.Text);
-
-            if (num == randomNumber) {
-                HelpText.Text = "Верно!";
-                HelpText.Foreground = Brushes.Green;
-                timer.Stop();
-            }
-            else 
+            if (NumberText.Text != string.Empty)
             {
-                count++;
-                if (count % 3 == 0) HelpButton.Visibility = Visibility.Visible;
-                else HelpButton.Visibility = Visibility.Collapsed;
+                int num = int.Parse(NumberText.Text);
+                HelpText.Foreground = Brushes.Black;
+                if (num > randomNumber)
+                    HelpText.Text = "Число должно быть меньше";
+                else
+                    HelpText.Text = "Число должно быть больше";
 
-                HelpText.Text = "Неверно!";
-                HelpText.Foreground = Brushes.Red;
+                HelpButton.Visibility = Visibility.Collapsed;
             }
         }
 
-        private void HelpButton_Click(object sender, RoutedEventArgs e)
+        private void NumberText_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            int num = int.Parse(NumberText.Text);
-            HelpText.Foreground = Brushes.Black;
-            if (num > randomNumber)
-                HelpText.Text = "Число должно быть меньше";
-            else
-                HelpText.Text = "Число должно быть больше";
+            if (e.Key >= Key.D0 && e.Key <= Key.D9)
+            {
+                NumberText.Text += e.Key - Key.D0;
+            }
+            if (e.Key == Key.Enter && NumberText.Text != string.Empty)
+            {
+                int num = int.Parse(NumberText.Text);
+
+                if (num == randomNumber)
+                {
+                    HelpText.Text = "Верно!";
+                    HelpText.Foreground = Brushes.Green;
+                    timer.Stop();
+                }
+                else
+                {
+                    count++;
+                    if (count % 3 == 0) HelpButton.Visibility = Visibility.Visible;
+                    else HelpButton.Visibility = Visibility.Collapsed;
+
+                    HelpText.Text = "Неверно!";
+                    HelpText.Foreground = Brushes.Red;
+                }
+                NumberText.Text = string.Empty;
+            }
         }
     }
 }

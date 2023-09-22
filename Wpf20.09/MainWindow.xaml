@@ -6,13 +6,19 @@
         xmlns:local="clr-namespace:Wpf20._09"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize"
-        Background="LightGoldenrodYellow"
-        >
+        PreviewKeyDown="NumberText_PreviewKeyDown">
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FFBCBABF" Offset="0"/>
+            <GradientStop Color="#FFC969CE" Offset="0.5"/>
+            <GradientStop Color="#FF8047D4" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Canvas>
         <!-- Меню игры -->
         <Menu Height="20" Width="800" 
               HorizontalAlignment="Center" VerticalAlignment="Top"
-              Background="#FFDADAAB"
+              Background="Transparent"
               >
             <MenuItem Header="_Игра">
                 <MenuItem Header="Новая игра" InputGestureText="Alt+N" Click="Start_Click"/>
@@ -20,7 +26,7 @@
             </MenuItem>
             <MenuItem Header="На_стройки">
                 <MenuItem Header="Сложность игры">
-                    <MenuItem Header="Легко" IsCheckable="True"/>
+                    <MenuItem Header="Легко" IsCheckable="True" />
                     <Separator/>
                     <MenuItem Header="Средне" IsCheckable="True" IsChecked="True"/>
                     <Separator/>
@@ -41,46 +47,71 @@
                    TextWrapping="Wrap" 
                    Text="Угадай число" 
                    FontSize="36" FontFamily="Segoe Script"
-                   Foreground="DarkOrchid"
+                   Foreground="#FF470E63" TextDecorations="Underline"
                    />
 
         <!-- Кнопки начала игры -->
-        <Button x:Name="Start" Content="Новая игра"
-                Canvas.Left="257" Canvas.Top="215" 
-                Height="43" Width="286"
-                Background="Bisque"
-                Foreground="#FF732286"                
-                FontSize="26"
-                FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Start_Click"
-                />
-        <Button x:Name="Exit" Content="Выход"
-                Canvas.Left="257" Canvas.Top="277" 
-                Height="43" Width="286"
-                Background="Bisque"
-                Foreground="#FF732286" 
-                FontSize="26" 
-                HorizontalAlignment="Center" VerticalAlignment="Top" Click="Exit_Click"
-                />
+        <Canvas x:Name="StartMenu" Visibility="Visible">
+            <Button x:Name="Start" Content="Новая игра"
+                Canvas.Left="257" Canvas.Top="215"             
+                Click="Start_Click" Style="{StaticResource StyleButton}"/>
+            <Button x:Name="Exit" Content="Выход"
+                Canvas.Left="257" Canvas.Top="277"               
+                Click="Exit_Click" Style="{StaticResource StyleButton}"/>
 
+            <!--<Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#FFECCCF3"/>
+                        <Setter Property="Foreground" Value="#FF732286"/>
+                        <Setter Property="FontSize" Value="26" />
+                        <Setter Property="FontWeight" Value="DemiBold"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="VerticalAlignment" Value="Top"/>
+                        <Setter Property="BorderBrush" Value="#FF732286"/>
+                        <Setter Property="BorderThickness" Value="2"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFE8E2EA"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#FF8E7CFF"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#FFE8E2EA"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>-->
+
+        </Canvas>
         <!-- Сама игра -->
         <Canvas x:Name="Game" Visibility="Collapsed">
-            <TextBlock x:Name="TimeBox" Canvas.Left="38" Canvas.Top="199" 
-               TextWrapping="Wrap" Text="60"
-               FontSize="150"/>
-            <TextBox x:Name="NumberText" Height="100" Width="192" Canvas.Left="310" Canvas.Top="249" 
-                     HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="90" />
+            <TextBlock x:Name="TimeBox" Canvas.Left="391" Canvas.Top="134" 
+               TextWrapping="Wrap"
+               FontSize="90" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBlock x:Name="NumberText" Canvas.Left="391" Canvas.Top="258" 
+                        HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="90" 
+                        TextWrapping="Wrap"
+                        Background="Transparent"/>
             <Button x:Name="HelpButton" Canvas.Left="654" Canvas.Top="249" 
                 Background="Transparent" Height="100" Width="105"
-                BorderThickness="0" Click="HelpButton_Click"
-                    >
+                BorderThickness="0" Click="HelpButton_Click">
                 <Image Source="/Images/подсказка.png" />
             </Button>
-            <Button x:Name="CheckNumberButton" Canvas.Left="536" Canvas.Top="249" 
-                Height="100" Width="98" 
-                HorizontalAlignment="Left" VerticalAlignment="Center"
-                Background="Bisque" Click="CheckNumberButton_Click"/>
-            <TextBox x:Name="HelpText" Canvas.Left="375" Canvas.Top="371" 
-                     Background="Transparent"
+            <TextBlock x:Name="HelpText" Canvas.Left="391" Canvas.Top="370"
+                    TextWrapping="Wrap"
+                    Background="Transparent"                    
                      />
         </Canvas>
     </Canvas>
